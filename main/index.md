@@ -16,7 +16,7 @@ The origin of its name. Elder software wich ruled the Web.
 PHP can run as a CGI or with exotic server,
 but PHP glory came with mod\_php : php inside Apache.
 
-PHP is Apache, Apache is PHP.
+>PHP is Apache, Apache is PHP.
 
 !SLIDE
 
@@ -105,8 +105,66 @@ CGI launch an application for each requests.
 
 FastCGI is a server, run permanently with its owner, behind a TCP connection.
 
+!SLIDE
+
+# Fast CGI #
+
+FastCGI is a standard. Apache talks FastCGI, but monothreaded servers too.
+
+Lighttpd (Lighty) / Nginx (Engine X) / Cherokee
+
 You can use different FastCGI server behind a webserver.
 Different application, or different instances of a same application with different configuration.
 
 FastCGI can run on a different computer, just like your Mysql.
 
+!SLIDE
+
+# PHP-FPM #
+
+PHP-fpm was a russian patch for php-cgi.
+
+It's now a PHP 5.4 core feature.
+
+IT'S STANDARD.
+
+!SLIDE
+
+# The doom of /admin #
+
+You keep your main pages light and fast. But your admin pages with batch actions or "display all datas?"
+
+With apache, you have to set memory and time bound for the worst case.
+
+Like 1024 Mo and 30 minutes for an intranet. Elegant.
+
+!SLIDE
+
+# Chirurgical strike #
+
+You can use different pools of connection with php-fpm. One pool per port.
+The webserver dispatch with url pattern to the right port.
+
+
+
+
+…
+
+l'hebergeur dutch chez aws
+
+le cas Facebook avec ses workers apaches
+
+Le recyclage des workers (500 fois), gestion des crashs
+
+La conf d'apache est moche, pas celle de lighty ou de Nginx
+
+Virtual hosting, PHP avec des droits différents
+
+Scale très bien => 2 workers sur une petite slice ou un petit dédié, un plug
+Cluster de workers derrière un seul front.
+
+le cache apc ne fonctionne plus
+
+l'outil de bench Facebook ou le debug fonctionne.
+
+batch en cli ou avec des working queues.
