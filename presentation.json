@@ -1,1 +1,9 @@
-{ "title": "Beyound Apache", "theme": "shower", "sections": ["main"] }
+{
+    "title": "Beyound Apache",
+    "theme": "shower",
+    "sections": [
+        "01_apache",
+        "02_monothread",
+        "03_fastcgi"
+    ]
+}
