@@ -1,3 +1,12 @@
 .slide P {
     margin-bottom: 30px;
 }
+
+.slide CODE {
+    background-color: silver;
+    padding: 5px;
+}
+
+.slide p img {
+    margin: auto;
+}
