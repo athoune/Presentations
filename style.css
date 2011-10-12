@@ -10,3 +10,11 @@
 .slide p img {
     margin: auto;
 }
+
+.slide section {
+    page-break-after: always;
+}
+
+.caption {
+    page-break-after: always;
+}
