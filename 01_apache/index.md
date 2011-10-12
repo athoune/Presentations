@@ -1,5 +1,5 @@
 !SLIDE
-# Beyound Apache #
+# Beyond Apache #
 
 >But still PHP
 
@@ -7,7 +7,7 @@
 
 # A patch #
 
-The origin of its name. Elder software wich ruled the Web.
+The origin of its name. Elder software which ruled the Web.
 
 !SLIDE
 
@@ -27,7 +27,7 @@ That's why libraries sort arguments differently
 or two libraries almost do the same thing.
 
 PHP core is thread safe, but not all its C libraries.
-Nobody knows wich part is thread safe wich part is not.
+Nobody knows which part is thread safe which part is not.
 So nobody use threads with PHP. Just fork them!
 
 PHP run in Apache, so Apache must use forked workers.

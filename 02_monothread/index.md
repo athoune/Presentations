@@ -18,7 +18,7 @@ In a thread models, each cooker take the command, cook the pizza and deliver it.
 If you wont to server 32 clients, you need 32 cookers.
 33rd and others clients waits outside and timeout.
 
-In an event model, you have few cooker, but a scheduler, wich write quickly commands,
+In an event model, you have few cooker, but a scheduler, which write quickly commands,
 and deliver the pizza to the right client when it's cooked.
 
 !SLIDE

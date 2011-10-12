@@ -25,7 +25,7 @@ FastCGI can run on a different computer, just like your Mysql.
 
 # PHP-FPM #
 
-PHP-fpm was a russian patch for php-cgi.
+PHP-fpm was a Russian patch for php-cgi.
 
 It's now a PHP 5.4 core feature.
 
@@ -52,7 +52,7 @@ Or you put it in memory then throwing it.
 Lighty built `X-sendfile` for that.
 Nginx named it `X-Accel-Redirect` and there also a mod\_xsendfile for Apache.
 
-The worker's job is done, it's now a webserver job, with `sendfile` optimisation and rate limitation.
+The worker's job is done, it's now a webserver job, with `sendfile` optimization and rate limitation.
 
 !SLIDE
 
@@ -79,7 +79,7 @@ Now, good luck to find the context, most of PHP application use a single entry p
 
 Almost all PECL modules work.
 
-APC cache is no more pertinant, but APC optimization is still useful.
+APC cache is no more pertinent, but APC optimization is still useful.
 
 XHProf and XDebug works very well.
 
@@ -148,3 +148,15 @@ Or you can use a PHP cloud hosting.
 Huge websites use apache workers with specific webserver for static files.
 
 Facebook use HipHop, compiling PHP to C++ then serving it throw an event loop.
+
+!SLIDE
+
+# Beyond #
+
+You don't need LAMP.
+
+You need stable software stack to build your website.
+
+Shared hosting is no more a curse, there is now light or virtualized hosting.
+
+Use something that suit your needs. Even Apache.
