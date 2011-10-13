@@ -2,6 +2,7 @@
     "title": "Beyond Apache",
     "theme": "shower",
     "sections": [
+        "00_preface",
         "01_apache",
         "02_monothread",
         "03_fastcgi"

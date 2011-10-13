@@ -1,9 +1,4 @@
 !SLIDE
-# Beyond Apache #
-
->But still PHP
-
-!SLIDE
 
 # A patch #
 
