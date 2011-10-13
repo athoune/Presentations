@@ -17,7 +17,7 @@ FastCGI is a standard. Apache talks FastCGI, but monothreaded servers too.
 Lighttpd (Lighty) / Nginx (Engine X) / Cherokee
 
 You can use different FastCGI server behind a webserver.
-Different application, or different instances of a same application with different configuration.
+Different applications, or different instances of a same application with different configurations.
 
 FastCGI can run on a different computer, just like your Mysql.
 
@@ -37,7 +37,7 @@ IT'S STANDARD.
 
 You loose it. It's Apache specific.
 
-Each webserver handle it differently. Even with `lua`.
+Each webserver handles it differently. Even with `lua`.
 
 Most of time, someone clever gives you the config file, Nginx is no more exotic.
 
@@ -129,7 +129,7 @@ Adding and removing workers is a cloud job.
 
 You can do it yourself with Amazon, Joyent …
 
-You can share a multi hosted frontend, and dispatching the load between the cloud.
+You can share a multi hosted frontend, and dispatching the load in the cloud.
 
 Be careful with files uploaded.
 

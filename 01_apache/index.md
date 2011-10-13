@@ -15,7 +15,7 @@ but PHP glory came with mod\_php : php inside Apache.
 
 !SLIDE
 
-# PHP is no thread safe #
+# PHP is not thread safe #
 
 PHP was a light glue around C library.
 That's why libraries sort arguments differently
@@ -23,7 +23,7 @@ or two libraries almost do the same thing.
 
 PHP core is thread safe, but not all its C libraries.
 Nobody knows which part is thread safe which part is not.
-So nobody use threads with PHP. Just fork them!
+So nobody use threads with PHP. Just fork it!
 
 PHP run in Apache, so Apache must use forked workers.
 
@@ -31,7 +31,7 @@ PHP run in Apache, so Apache must use forked workers.
 
 # Why PHP is so tought? #
 
-PHP born and die for each request. Nuclear cleanup.
+PHP borns and dies for each request. Nuclear cleanup.
 
 PHP is bound. Time bound, memory bound. One request can't bother others.
 
@@ -55,7 +55,7 @@ Cross fingers for not be CPU bound.
 
 # Apache forks #
 
-Apache pick in its pool of worker for PHP content or static content.
+Apache pick in its pool of workers for PHP content or static content.
 
 Forked workers is not good for static contents.
 
