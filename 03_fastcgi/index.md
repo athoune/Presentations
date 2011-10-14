@@ -4,9 +4,9 @@
 
 PHP can run as a CGI, or, far better as FastCGI.
 
-CGI launch an application for each requests.
+CGI launches an application for each requests.
 
-FastCGI is a server, run permanently with its owner, behind a TCP connection.
+FastCGI is a server, runs permanently with its owner, behind a TCP connection.
 
 !SLIDE
 
@@ -14,9 +14,9 @@ FastCGI is a server, run permanently with its owner, behind a TCP connection.
 
 FastCGI is a standard. Apache talks FastCGI, but monothreaded servers too.
 
-Lighttpd (Lighty) / Nginx (Engine X) / Cherokee
+**Lighttpd** (Lighty) / **Nginx** (Engine X) / **Cherokee**
 
-You can use different FastCGI server behind a webserver.
+You can use different FastCGI servers behind a webserver.
 Different applications, or different instances of a same application with different configurations.
 
 FastCGI can run on a different computer, just like your Mysql.
@@ -27,9 +27,9 @@ FastCGI can run on a different computer, just like your Mysql.
 
 PHP-fpm was a Russian patch for php-cgi.
 
-It's now a PHP 5.4 core feature.
+It is now a PHP 5.4 core feature.
 
-IT'S STANDARD.
+IT IS STANDARD.
 
 !SLIDE
 
@@ -39,29 +39,29 @@ You loose it. It's Apache specific.
 
 Each webserver handles it differently. Even with `lua`.
 
-Most of time, someone clever gives you the config file, Nginx is no more exotic.
+Most of the time, someone clever gives you the config file, Nginx is no more exotic.
 
 !SLIDE
 
 # Delegate static file handling #
 
-Sometime you need some PHP logic (ACL, concatenating files …) then serving a static file.
-If you're polite, you iterate over it, read and send parts.
-Or you put it in memory then throwing it.
+Sometimes you need some PHP logic (ACL, concatenating files …) then serving a static file.
+If you are polite, you iterate over it, read and send parts.
+Or you put it in memory then throw it.
 
 Lighty built `X-sendfile` for that.
-Nginx named it `X-Accel-Redirect` and there also a mod\_xsendfile for Apache.
+Nginx named it `X-Accel-Redirect` and there also a *mod\_xsendfile* for Apache.
 
-The worker's job is done, it's now a webserver job, with `sendfile` optimization and rate limitation.
+The worker's job is done, it is now a webserver job, with `sendfile` optimization and rate limitation.
 
 !SLIDE
 
 # PHP-FPM uses recycling #
 
-No more kleenex strategy. PHP-worker is used 500 times.
-It's a compromise between creation cost and memory leaks.
+No more kleenex strategy. A PHP-worker is used 500 times.
+It is a compromise between creation cost and memory leaks.
 
-Crashed workers are recycling earlier.
+Crashed workers are recycled earlier.
 
 !SLIDE
 
@@ -71,7 +71,7 @@ There is a slow log, like in Mysql.
 
 The script file name and a stack trace are logged.
 
-Now, good luck to find the context, most of PHP application use a single entry point with routing.
+Now, good luck to find the context, most of PHP applications use a single entry point with routing.
 
 !SLIDE
 
@@ -79,18 +79,18 @@ Now, good luck to find the context, most of PHP application use a single entry p
 
 Almost all PECL modules work.
 
-APC cache is no more pertinent, but APC optimization is still useful.
+APC cache is no pertinent anymore, but APC optimization is still useful.
 
-XHProf and XDebug works very well.
+XHProf and XDebug work very well.
 
 !SLIDE
 
 # The doom of /admin #
 
 You keep your main pages light and fast.
-But your admin pages with batch actions or "display all datas?"
+But what about your admin pages with batch actions or "display all datas" ?
 
-With apache, you have to set memory and time bound for the worst case.
+With Apache, you have to set memory and time bound for the worst case.
 
 Like 1024 Mo and 30 minutes for an intranet. Elegant.
 
@@ -101,13 +101,13 @@ Like 1024 Mo and 30 minutes for an intranet. Elegant.
 You can use different pools of connection with php-fpm. One pool per port.
 The webserver dispatch with url pattern to the right port.
 
-Each pool got its own configuration and user.
+Each pool has its own configuration and user.
 
 !SLIDE
 
 # Scaling up and down #
 
-You can use lots of workers and lots of server for a huge website.
+You can use lots of workers and lots of servers for a huge website.
 
 You can use 2 workers in a small virtualized slice or a plugserver.
 
@@ -115,11 +115,11 @@ Both work.
 
 !SLIDE
 
-# Please don't do batch in a webserver #
+# Please do not do batch in a webserver #
 
 Use batch queue and php-cli.
 
-wget in a cron file, anyone already did that ?
+wget in a cron file. Anyone already did that ?
 
 !SLIDE
 
@@ -129,9 +129,9 @@ Adding and removing workers is a cloud job.
 
 You can do it yourself with Amazon, Joyent …
 
-You can share a multi hosted frontend, and dispatching the load in the cloud.
+You can share a multi hosted frontend, and dispatch the load in the cloud.
 
-Be careful with files uploaded.
+Be careful with uploaded files.
 
 Or you can use a PHP cloud hosting.
 
@@ -145,9 +145,9 @@ Or you can use a PHP cloud hosting.
 
 # The big ones #
 
-Huge websites use apache workers with specific webserver for static files.
+Huge websites use Apache workers with specific webserver for static files.
 
-Facebook use HipHop, compiling PHP to C++ then serving it throw an event loop.
+Facebook use HipHop, compiling PHP to C++ then serving it through an event loop.
 
 !SLIDE
 

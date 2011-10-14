@@ -2,7 +2,7 @@
 
 # A patch #
 
-The origin of its name. Elder software which ruled the Web.
+"A patch" is the origin of its name. Elder software which ruled the Web.
 
 !SLIDE
 
@@ -25,15 +25,15 @@ PHP core is thread safe, but not all its C libraries.
 Nobody knows which part is thread safe which part is not.
 So nobody use threads with PHP. Just fork it!
 
-PHP run in Apache, so Apache must use forked workers.
+PHP runs in Apache, so Apache must use forked workers.
 
 !SLIDE
 
-# Why PHP is so tought? #
+# Why is PHP so tought? #
 
-PHP borns and dies for each request. Nuclear cleanup.
+PHP is born and dies for each request. Nuclear cleanup.
 
-PHP is bound. Time bound, memory bound. One request can't bother others.
+PHP is bound. Time bound, memory bound. One request cannot bother others.
 
 !SLIDE
 
@@ -49,14 +49,14 @@ Total memory / PHP memory available.
 
 Keep some memories for the OS and other services.
 
-Cross fingers for not be CPU bound.
+Cross fingers in hope not to be CPU bound.
 
 !SLIDE
 
 # Apache forks #
 
-Apache pick in its pool of workers for PHP content or static content.
+Apache picks in its pool of workers for PHP content or static content.
 
 Forked workers is not good for static contents.
 
-You are burning workers just for waiting your hard drive?
+Are you burning workers just for waiting after your hard drive?
