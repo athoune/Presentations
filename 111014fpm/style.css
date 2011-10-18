@@ -1,0 +1,37 @@
+.slide h1 {
+    font-size: 300%;
+    margin-bottom: 25px;
+}
+
+#slide-0-0 h1 {
+    font-size: 500%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+}
+
+#slide-0-1 img {
+    width: 300px;
+    float: right;
+}
+
+.slide P {
+    margin-bottom: 25px;
+}
+
+.slide CODE {
+    background-color: silver;
+    padding: 5px;
+}
+
+.slide p img {
+    margin: auto;
+}
+
+.slide section {
+    page-break-after: always;
+}
+
+.caption {
+    page-break-after: always;
+}

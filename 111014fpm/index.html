@@ -1,0 +1,352 @@
+<!doctype html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <title>Beyond Apache</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pygments/colorful.css">
+      <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="list">
+    <header class="caption">
+      <h1>Beyond Apache</h1>
+    </header>
+        <div id="slide-0-0" class="slide ">
+          <div><section>
+            <h1>Beyond Apache</h1>
+<blockquote>
+<p>But still PHP</p>
+</blockquote>
+          </section></div>
+        </div>
+        <div id="slide-0-1" class="slide ">
+          <div><section>
+            <h1>Mathieu Lecarme</h1>
+
+<p><img src="af83.png" alt="AF83">
+</p>
+
+<ul>
+<li>R&amp;D Dev @ <a href="http://dev.af83.com/">af83</a></li>
+<li><a href="https://github.com/athoune">github.com/athoune</a></li>
+<li><a href="http://twitter.com/twitter">twitter.com/athoune</a></li>
+</ul>
+
+          </section></div>
+        </div>
+        <div id="slide-1-0" class="slide ">
+          <div><section>
+            <h1>A patch</h1>
+
+<p>&quot;A patch&quot; is the origin of its name. Elder software which ruled the Web.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-1" class="slide ">
+          <div><section>
+            <h1>mod_php</h1>
+
+<p>PHP can run as a CGI or with exotic server,
+but PHP glory came with mod_php : php inside Apache.</p>
+<blockquote>
+<p>PHP is Apache, Apache is PHP.</p>
+</blockquote>
+          </section></div>
+        </div>
+        <div id="slide-1-2" class="slide ">
+          <div><section>
+            <h1>PHP is not thread safe</h1>
+
+<p>PHP was a light glue around C library.
+That's why libraries sort arguments differently
+or two libraries almost do the same thing.</p>
+
+<p>PHP core is thread safe, but not all its C libraries.
+Nobody knows which part is thread safe which part is not.
+So nobody use threads with PHP. Just fork it!</p>
+
+<p>PHP runs in Apache, so Apache must use forked workers.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-3" class="slide ">
+          <div><section>
+            <h1>Why is PHP so tought?</h1>
+
+<p>PHP is born and dies for each request. Nuclear cleanup.</p>
+
+<p>PHP is bound. Time bound, memory bound. One request cannot bother others.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-4" class="slide ">
+          <div><section>
+            <h1>Never swap</h1>
+
+<p>How many workers can I handle?</p>
+
+<p>Total memory / PHP memory available.</p>
+
+<p><code>
+4096 Mo / 128 Mo = 32 workers.
+</code></p>
+
+<p>Keep some memories for the OS and other services.</p>
+
+<p>Cross fingers in hope not to be CPU bound.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-1-5" class="slide ">
+          <div><section>
+            <h1>Apache forks</h1>
+
+<p>Apache picks in its pool of workers for PHP content or static content.</p>
+
+<p>Forked workers is not good for static contents.</p>
+
+<p>Are you burning workers just for waiting after your hard drive?</p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-0" class="slide ">
+          <div><section>
+            <h1>Monothreaded HTTP server</h1>
+
+<p>Serving statical contents is not CPU bound, but IO bounds. You are waiting after
+the hard drive, even with 32 cores.</p>
+
+<p>Single thread server with an event loop is far better for such task.
+It accepts all connections, and answers only when a block of file is available.
+No idle threads are waiting after the hard drive. One thread to rule them all.
+Caching file in RAM is not a job for the webserver, but a task for the file system.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-1" class="slide ">
+          <div><section>
+            <h1>The pizza parabol</h1>
+
+<p>In a thread models, each cooke takes the command, cook the pizza and delivers it.
+If you want to serve 32 clients, you need 32 cooks.
+33rd and others clients wait outside and timeout.</p>
+
+<p>In an event model, you have fewer cooks, but a scheduler, which writes commands quickly
+and delivers the pizza to the right client when it is cooked.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-2-2" class="slide ">
+          <div><section>
+            <h1>Where do I put my PHP in a monothreaded HTTP server?</h1>
+
+<ul>
+<li>PHP is not event driven (like Nodejs, Twisted or EventMachine).</li>
+<li>PHP doesn't like threads.</li>
+<li>You just don't have to put your PHP in a webserver.</li>
+</ul>
+
+          </section></div>
+        </div>
+        <div id="slide-3-0" class="slide ">
+          <div><section>
+            <h1>PHP outside the webserver</h1>
+
+<p>PHP can run as a CGI, or, far better as FastCGI.</p>
+
+<p>CGI launches an application for each requests.</p>
+
+<p>FastCGI is a server, runs permanently with its owner, behind a TCP connection.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-1" class="slide ">
+          <div><section>
+            <h1>Fast CGI</h1>
+
+<p>FastCGI is a standard. Apache talks FastCGI, but monothreaded servers too.</p>
+
+<p><strong>Lighttpd</strong> (Lighty) / <strong>Nginx</strong> (Engine X) / <strong>Cherokee</strong></p>
+
+<p>You can use different FastCGI servers behind a webserver.
+Different applications, or different instances of a same application with different configurations.</p>
+
+<p>FastCGI can run on a different computer, just like your Mysql.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-2" class="slide ">
+          <div><section>
+            <h1>PHP-FPM</h1>
+
+<p>PHP-fpm was a Russian patch for php-cgi.</p>
+
+<p>It is now a PHP 5.4 core feature.</p>
+
+<p>IT IS STANDARD.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-3" class="slide ">
+          <div><section>
+            <h1>Where is my mod_rewrite routing?</h1>
+
+<p>You loose it. It's Apache specific.</p>
+
+<p>Each webserver handles it differently. Even with <code>lua</code>.</p>
+
+<p>Most of the time, someone clever gives you the config file, Nginx is no more exotic.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-4" class="slide ">
+          <div><section>
+            <h1>Delegate static file handling</h1>
+
+<p>Sometimes you need some PHP logic (ACL, concatenating files …) then serving a static file.
+If you are polite, you iterate over it, read and send parts.
+Or you put it in memory then throw it.</p>
+
+<p>Lighty built <code>X-sendfile</code> for that.
+Nginx named it <code>X-Accel-Redirect</code> and there also a <em>mod_xsendfile</em> for Apache.</p>
+
+<p>The worker's job is done, it is now a webserver job, with <code>sendfile</code> optimization and rate limitation.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-5" class="slide ">
+          <div><section>
+            <h1>PHP-FPM uses recycling</h1>
+
+<p>No more kleenex strategy. A PHP-worker is used 500 times.
+It is a compromise between creation cost and memory leaks.</p>
+
+<p>Crashed workers are recycled earlier.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-6" class="slide ">
+          <div><section>
+            <h1>PHP-FPM are monitored</h1>
+
+<p>There is a slow log, like in Mysql.</p>
+
+<p>The script file name and a stack trace are logged.</p>
+
+<p>Now, good luck to find the context, most of PHP applications use a single entry point with routing.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-7" class="slide ">
+          <div><section>
+            <h1>I want my PECL modules</h1>
+
+<p>Almost all PECL modules work.</p>
+
+<p>APC cache is no pertinent anymore, but APC optimization is still useful.</p>
+
+<p>XHProf and XDebug work very well.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-8" class="slide ">
+          <div><section>
+            <h1>The doom of /admin</h1>
+
+<p>You keep your main pages light and fast.
+But what about your admin pages with batch actions or &quot;display all datas&quot; ?</p>
+
+<p>With Apache, you have to set memory and time bound for the worst case.</p>
+
+<p>Like 1024 Mo and 30 minutes for an intranet. Elegant.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-9" class="slide ">
+          <div><section>
+            <h1>Chirurgical strike</h1>
+
+<p>You can use different pools of connection with php-fpm. One pool per port.
+The webserver dispatch with url pattern to the right port.</p>
+
+<p>Each pool has its own configuration and user.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-10" class="slide ">
+          <div><section>
+            <h1>Scaling up and down</h1>
+
+<p>You can use lots of workers and lots of servers for a huge website.</p>
+
+<p>You can use 2 workers in a small virtualized slice or a plugserver.</p>
+
+<p>Both work.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-11" class="slide ">
+          <div><section>
+            <h1>Please do not do batch in a webserver</h1>
+
+<p>Use batch queue and php-cli.</p>
+
+<p>wget in a cron file. Anyone already did that ?</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-12" class="slide ">
+          <div><section>
+            <h1>PHP as a service</h1>
+
+<p>Adding and removing workers is a cloud job.</p>
+
+<p>You can do it yourself with Amazon, Joyent …</p>
+
+<p>You can share a multi hosted frontend, and dispatch the load in the cloud.</p>
+
+<p>Be careful with uploaded files.</p>
+
+<p>Or you can use a PHP cloud hosting.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-13" class="slide ">
+          <div><section>
+            <h1>Orchestra.io</h1>
+
+<p><img src="orchestra_io.png" alt="Orchestra.io">
+</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-14" class="slide ">
+          <div><section>
+            <h1>The big ones</h1>
+
+<p>Huge websites use Apache workers with specific webserver for static files.</p>
+
+<p>Facebook use HipHop, compiling PHP to C++ then serving it through an event loop.</p>
+
+          </section></div>
+        </div>
+        <div id="slide-3-15" class="slide ">
+          <div><section>
+            <h1>Beyond</h1>
+
+<p>You don't need LAMP.</p>
+
+<p>You need stable software stack to build your website.</p>
+
+<p>Shared hosting is no more a curse, there is now light or virtualized hosting.</p>
+
+<p>Use something that suit your needs. Even Apache.</p>
+
+          </section></div>
+        </div>
+	<div class="progress"><div></div></div>
+      <script src="js/script.js"></script>
+	<!-- Copyright © 2010–2011 Vadim Makeev, http://pepelsbey.net/ -->
+  </body>
+</html>
